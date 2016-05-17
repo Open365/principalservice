@@ -1,0 +1,69 @@
+################################################################################
+## ENTRY POINT, it's a nginx which proxies to other internal services ##########
+################################################################################
+proxy:
+  image: docker-registry.eyeosbcn.com/eyeos-proxy:latest
+  net: "host"
+  dns: "127.0.0.1"
+  privileged: true
+  environment:
+    - EYEOS_DEVELOPMENT_MODE=false
+
+################################################################################
+## SYSTEM DEPENDENCIES #########################################################
+################################################################################
+mongodb:
+  image: mongo:2.6
+  net: "host"
+  dns: "127.0.0.1"
+  environment:
+      - EYEOS_DEVELOPMENT_MODE=false
+
+################################################################################
+## BUS TO HTTP #################################################################
+################################################################################
+httpToBus:
+  image: docker-registry.eyeosbcn.com/eyeos-httptobusserver:latest
+  net: "host"
+  privileged: true
+  dns: "127.0.0.1"
+  environment:
+      - EYEOS_DEVELOPMENT_MODE=false
+
+################################################################################
+## OTHER SERVICES ##############################################################
+################################################################################
+authentication:
+  image: docker-registry.eyeosbcn.com/eyeos-authentication:latest
+  net: "host"
+  dns: "127.0.0.1"
+  environment:
+      - EYEOS_DEVELOPMENT_MODE=false
+
+principalService:
+  image: docker-registry.eyeosbcn.com/eyeos-principalservice:latest
+  privileged: true
+  net: "host"
+  dns: "127.0.0.1"
+  volumes:
+    - /mnt/rawFS:/mnt/rawFS
+  environment:
+      - EYEOS_DEVELOPMENT_MODE=false
+      - EYEOS_PRINCIPAL_ENABLE_ALL_PERS_EVERYONE=true
+
+ldap:
+  image: docker-registry.eyeosbcn.com/ldap:latest
+  net: "host"
+  dns: "127.0.0.1"
+  environment:
+    - EYEOS_DEVELOPMENT_MODE=false
+    - LDAP_DOMAIN=eyeos.com
+    - LDAP_ORGANISATION="eyeOS"
+    - LDAP_ROOTPASS=root
+
+rabbitmq:
+  image: docker-registry.eyeosbcn.com/docker-rabbitmq:latest
+  net: "host"
+  dns: "127.0.0.1"
+  environment:
+      - EYEOS_DEVELOPMENT_MODE=false
