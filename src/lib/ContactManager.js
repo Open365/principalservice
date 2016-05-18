@@ -43,9 +43,11 @@ ContactManager.prototype.searchForContact = function (principalId, domain, crite
             return;
         }
 
+        usersFound = self._filterUsers(usersFound);
+
         if (usersFound.length == 0) {
             callback(null, usersFound);
-            return
+            return;
         }
 
         self.logger.debug("Contacts that match query:", usersFound);
@@ -196,6 +198,18 @@ ContactManager.prototype._setPresenceForContacts = function (contacts, online) {
     for (i = 0; i < contacts.length; i++) {
         contacts[i].online = online.hasOwnProperty(contacts[i].principalId);
     }
+};
+
+ContactManager.prototype._filterUsers = function(users) {
+    var filteredUsers = [];
+
+    users.forEach(function (user) {
+        if(settings.contacts.filteredPrincipalIds.indexOf(user.principalId) === -1) {
+            filteredUsers.push(user);
+        }
+    });
+
+    return filteredUsers;
 };
 
 module.exports = ContactManager;

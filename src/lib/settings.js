@@ -129,7 +129,10 @@ var Settings = {
 		}
 	},
 	contacts: {
-		searchForContactLimit: environment.EYEOS_PRINCIPALSERVICE_SEARCHFORCONTACTLIMIT || 15
+		searchForContactLimit: environment.EYEOS_PRINCIPALSERVICE_SEARCHFORCONTACTLIMIT || 15,
+		filteredPrincipalIds: [
+			"noreply"
+		]
 	},
 	EYEOS_DEVELOPMENT_MODE: EYEOS_DEVELOPMENT_MODE
 };
