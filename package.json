@@ -1,6 +1,6 @@
 {
   "name": "principalService",
-  "version": "0.0.257",
+  "version": "0.0.258",
   "description": "people and groups rest api",
   "main": "eyeos-principalService.js",
   "author": "eyeOS",
