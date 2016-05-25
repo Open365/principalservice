@@ -11,7 +11,6 @@ CMD eyeos-run-server --serf /var/service/src/eyeos-principalService.js
 COPY . ${InstallationDir}
 
 RUN apk update && apk add --no-cache curl make gcc g++ git python && \
-    npm install heapdump && \
     npm install --production && \
     npm cache clean && \
     apk del curl make gcc g++ git python && \

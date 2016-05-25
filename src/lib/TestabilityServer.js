@@ -20,7 +20,7 @@
 var settings = require('./settings.js');
 var log2out = require('log2out');
 var express = require('express');
-var heapdump = require('heapdump');
+// var heapdump = require('heapdump');
 var _ = require("underscore");
 
 var TestabilityServer = function() {
@@ -64,7 +64,7 @@ TestabilityServer.prototype.start = function() {
         });
     });
     this.testabilityApp.get("/heapdump", function (req, res) {
-        heapdump.writeSnapshot('./' + Date.now() + '.heapsnapshot');
+//         heapdump.writeSnapshot('./' + Date.now() + '.heapsnapshot');
         res.end();
     });
     this.testabilityApp.get("/gc", function (req, res) {
