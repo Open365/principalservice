@@ -36,11 +36,11 @@ ChangePasswordExpressProvider.prototype._close = function() {
     this.ldapClient = null;
 };
 
-ChangePasswordExpressProvider.prototype._updateChangePasswordField = function(username,cb) {
+ChangePasswordExpressProvider.prototype._updateChangePasswordField = function(username,domain, cb) {
 
     var PrincipalSchema = eyeos_principal.PrincipalSchema(mongoose);
     var PrincipalModel = this.principalModel || PrincipalSchema.getModel();
-    var query = {principalId: username};
+    var query = {principalId: username, domain: domain};
 
     PrincipalModel.findOneAndUpdate(query, {mustChangePassword: false}, function (err, principal) {
         cb(err);
@@ -70,7 +70,7 @@ ChangePasswordExpressProvider.prototype._modifyPassword = function(data,cb) {
                 cb(500, err.message);
             }
         } else {
-            self._updateChangePasswordField(data.username, function(err) {
+            self._updateChangePasswordField(data.username, data.domain, function(err) {
                 if(err) {
                     logger.error('_modifyPassword updating ldap error: ', err);
                     cb(500, err.message);
