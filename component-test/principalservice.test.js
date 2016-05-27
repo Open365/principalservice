@@ -115,7 +115,7 @@ suite('Principal service component tests', function () {
 
 
 		suite('#changepassword bugs', function () {
-			var username = 'eyeos';
+			var username = 'testUser1';
 			suiteSetup(function (done) {
 				function changePasswordForUser() {
 					basicRequestWithCardAndSignatureParsed(data)
