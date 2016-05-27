@@ -32,6 +32,7 @@ suite('Principal service component tests', function () {
 	var principalsUrl = '/principalService/v1/principals';
 	var workgroupsUrl = '/principalService/v1/workgroups';
 	var changePassword = '/principalService/v1/changepassword';
+	var me = principalsUrl+'/me';
 	var everyoneGroupUrl = systemGroupsUrl + '/EVERYONE';
 	var administratorGroupUrl = systemGroupsUrl + '/ADMINISTRATOR';
 
@@ -111,6 +112,46 @@ suite('Principal service component tests', function () {
 					.end(done);
 			});
 		}
+
+
+		suite('#changepassword bugs', function () {
+			var username = 'eyeos';
+			suiteSetup(function (done) {
+				function changePasswordForUser() {
+					basicRequestWithCardAndSignatureParsed(data)
+						.put(changePassword)
+						.send({
+							username: username,
+							currentpass: "eyeos",
+							newpass: "Newpassword1"
+						})
+						.end(function (err) {
+							if (err) {
+								throw err;
+							}
+							hippie4Eyeos.login(done, username, 'eyeos', null, 'anotherdomain.com');
+
+						});
+				}
+				hippie4Eyeos.login(changePasswordForUser, username, 'eyeos', null, 'atestdomain.com');
+
+			});
+
+			test("#login after another user (with same name but different domain) changes his password, should continue seeing the change password form", function (done){
+				/*
+					1 - user A logs in
+					2 - user A changes password
+					3 - user B logs in
+					4 - user B should see CHANGE PASSWORD FORM
+				*/
+				basicRequestWithCardAndSignatureParsed(data)
+					.get(me)
+					.expectStatus(200)
+					.expectBody(/"mustChangePassword":true/)
+					.end(done);
+			});
+		});
+
 	});
 
 	suite("#systemgroups api", function () {
