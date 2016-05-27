@@ -155,6 +155,10 @@ suite('Principal service component tests', function () {
 	});
 
 	suite("#systemgroups api", function () {
+		suiteSetup(function (done) {
+			hippie4Eyeos.login(done, 'eyeos', 'eyeos');
+		});
+
 		//@TODO: test me
 		test('#unauthorized request should return status 401 when requesting without a valid card and signature', function (done) {
 			hippie4Eyeos.basicRequest()
@@ -253,6 +257,9 @@ suite('Principal service component tests', function () {
 	});
 
 	suite("#workgroups api", function () {
+		suiteSetup(function (done) {
+			hippie4Eyeos.login(done, 'eyeos', 'eyeos');
+		});
 		//HA PASS
 		test("#POST should return status 201 when POST workgroups with valid card and signature", function (done) {
 			basicRequestWithCardAndSignatureParsed(data)
