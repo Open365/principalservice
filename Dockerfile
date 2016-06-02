@@ -8,11 +8,12 @@ WORKDIR ${InstallationDir}
 
 CMD eyeos-run-server --serf /var/service/src/eyeos-principalService.js
 
+COPY alpine-*.list /var/service/
 COPY . ${InstallationDir}
 
 RUN apk update && \
-    /scripts-base/installExtraBuild.sh && \
+    /scripts-base/buildDependencies.sh --production --install && \
     npm install --production && \
     npm cache clean && \
-    /scripts-base/deleteExtraBuild.sh && \
+    /scripts-base/buildDependencies.sh --production --purgue && \
     rm -r /etc/ssl /var/cache/apk/* /tmp/*
