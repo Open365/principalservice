@@ -1,8 +1,5 @@
-# Common packages
-common="curl make gcc g++ git python"
-
 # Install packages to images docker, "common" is declared into dependencies-extra of alpine6-node-base.
-add="$common"
+add_dev=""
 
 # Delete packages to images docker, "common" is declared into dependencies-extra of alpine6-node-base.
-del="$common"
+del_dev=""
