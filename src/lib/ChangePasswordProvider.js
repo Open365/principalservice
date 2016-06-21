@@ -36,7 +36,7 @@ ChangePasswordExpressProvider.prototype._close = function() {
     this.ldapClient = null;
 };
 
-ChangePasswordExpressProvider.prototype._updateChangePasswordField = function(username,domain, cb) {
+ChangePasswordExpressProvider.prototype._updateChangePasswordField = function(username, domain, cb) {
 
     var PrincipalSchema = eyeos_principal.PrincipalSchema(mongoose);
     var PrincipalModel = this.principalModel || PrincipalSchema.getModel();
