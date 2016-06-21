@@ -32,7 +32,7 @@ suite('Principal service component tests', function () {
 	var principalsUrl = '/principalService/v1/principals';
 	var workgroupsUrl = '/principalService/v1/workgroups';
 	var changePassword = '/principalService/v1/changepassword';
-	var me = principalsUrl+'/me';
+	var me = principalsUrl + '/me';
 	var everyoneGroupUrl = systemGroupsUrl + '/EVERYONE';
 	var administratorGroupUrl = systemGroupsUrl + '/ADMINISTRATOR';
 
